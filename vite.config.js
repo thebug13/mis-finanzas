@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// Cambia 'mis-finanzas' por el nombre de tu repositorio en GitHub
+// https://thebug13.github.io/mis-finanzas/
 const base = process.env.GITHUB_PAGES === 'true' ? '/mis-finanzas/' : '/';
 
 export default defineConfig({

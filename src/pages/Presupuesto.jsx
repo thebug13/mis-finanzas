@@ -51,7 +51,7 @@ export default function Presupuesto() {
       (err) => {
         setLoading(false);
         if (err?.code === 'permission-denied') {
-          setError('Sin permiso. Vuelve a publicar las reglas con publicar-reglas.bat');
+          setError('Sin permiso. Republica las reglas en Firebase Console → Firestore → Reglas.');
         } else {
           setError(err?.message || 'Error al cargar presupuesto');
         }

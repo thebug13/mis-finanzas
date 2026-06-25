@@ -6,7 +6,7 @@ const MovimientosContext = createContext(null);
 
 function getFirestoreErrorMessage(error) {
   if (error?.code === 'permission-denied') {
-    return 'Sin permiso para leer datos. Ejecuta publicar-reglas.bat (doble clic) para publicar las reglas en Firebase Console.';
+    return 'Sin permiso para leer datos. Publica las reglas en Firebase Console → Firestore → Reglas.';
   }
   if (error?.code === 'failed-precondition') {
     return 'Falta un índice en Firestore. Abre la consola del navegador (F12) y sigue el enlace del error.';
