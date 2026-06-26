@@ -115,7 +115,71 @@ export default function Movimientos() {
         onExportCSV={handleExportCSV}
       />
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+      <div className="space-y-3 md:hidden">
+        {filtered.length === 0 ? (
+          <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-400 dark:border-slate-700 dark:bg-slate-800">
+            No hay movimientos con los filtros seleccionados
+          </div>
+        ) : (
+          filtered.map((m) => (
+            <div
+              key={m.id}
+              className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <div className="flex items-start justify-between">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        m.tipo === 'Ingreso'
+                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                          : 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
+                      }`}
+                    >
+                      {m.tipo}
+                    </span>
+                    <span className="text-xs text-slate-500">{m.categoria}</span>
+                  </div>
+                  <p className="mt-1 font-medium text-slate-900 dark:text-white">{m.concepto}</p>
+                  <p className="mt-0.5 text-xs text-slate-500">{formatFecha(m.fecha)}</p>
+                </div>
+                <p
+                  className={`text-lg font-bold ${
+                    m.tipo === 'Ingreso'
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-red-600 dark:text-red-400'
+                  }`}
+                >
+                  {m.tipo === 'Ingreso' ? '+' : '-'}{formatCurrency(m.valor)}
+                </p>
+              </div>
+              <div className="mt-3 flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-700">
+                <button
+                  onClick={() => {
+                    setEditing(m);
+                    setShowForm(false);
+                  }}
+                  className="flex-1 rounded-lg bg-blue-50 py-1.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400"
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={() => handleDelete(m.id)}
+                  className={`flex-1 rounded-lg py-1.5 text-xs font-medium ${
+                    deleteId === m.id
+                      ? 'bg-red-600 text-white'
+                      : 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400'
+                  }`}
+                >
+                  {deleteId === m.id ? 'Confirmar' : 'Eliminar'}
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white md:block dark:border-slate-700 dark:bg-slate-800">
         {filtered.length === 0 ? (
           <div className="p-12 text-center text-slate-400">
             No hay movimientos con los filtros seleccionados

@@ -12,8 +12,8 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="min-w-[120px] flex-1">
+      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-end">
+        <div>
           <label className="mb-1 block text-xs font-medium text-slate-500">Mes</label>
           <select
             value={filters.mes}
@@ -27,7 +27,7 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
           </select>
         </div>
 
-        <div className="min-w-[100px] flex-1">
+        <div>
           <label className="mb-1 block text-xs font-medium text-slate-500">Año</label>
           <select
             value={filters.anio}
@@ -41,7 +41,7 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
           </select>
         </div>
 
-        <div className="min-w-[120px] flex-1">
+        <div>
           <label className="mb-1 block text-xs font-medium text-slate-500">Tipo</label>
           <select
             value={filters.tipo}
@@ -58,7 +58,7 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
           </select>
         </div>
 
-        <div className="min-w-[140px] flex-1">
+        <div>
           <label className="mb-1 block text-xs font-medium text-slate-500">Categoría</label>
           <select
             value={filters.categoria}
@@ -72,29 +72,31 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
           </select>
         </div>
 
-        <button
-          onClick={resetFilters}
-          className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700"
-        >
-          Limpiar
-        </button>
+        <div className="col-span-2 flex gap-2 sm:col-span-1">
+          <button
+            onClick={resetFilters}
+            className="flex-1 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700 sm:flex-none"
+          >
+            Limpiar
+          </button>
 
-        {showExport && (
-          <>
-            <button
-              onClick={onExportExcel}
-              className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
-            >
-              Excel
-            </button>
-            <button
-              onClick={onExportCSV}
-              className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
-            >
-              CSV
-            </button>
-          </>
-        )}
+          {showExport && (
+            <>
+              <button
+                onClick={onExportExcel}
+                className="flex-1 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 sm:flex-none"
+              >
+                Excel
+              </button>
+              <button
+                onClick={onExportCSV}
+                className="flex-1 rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 sm:flex-none"
+              >
+                CSV
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
