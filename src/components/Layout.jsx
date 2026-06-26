@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
+import NotificationBell from './NotificationBell';
 import { useAuth } from '../contexts/AuthContext';
 import { useMovimientos } from '../contexts/MovimientosContext';
 import ThemeToggle from './ThemeToggle';
@@ -24,6 +25,7 @@ export default function Layout() {
             <span className="font-bold text-slate-900 dark:text-white">Mis Finanzas</span>
           </div>
           <div className="flex items-center gap-2">
+            <NotificationBell />
             <ThemeToggle />
             {user?.photoURL && (
               <img

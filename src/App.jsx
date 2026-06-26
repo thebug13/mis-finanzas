@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Movimientos from './pages/Movimientos';
 import Presupuesto from './pages/Presupuesto';
+import Bolsillos from './pages/Bolsillos';
+import Suscripciones from './pages/Suscripciones';
 
 function AppRoutes() {
   const { user, loading } = useAuth();
@@ -35,6 +37,8 @@ function AppRoutes() {
         <Route index element={<Dashboard />} />
         <Route path="movimientos" element={<Movimientos />} />
         <Route path="presupuesto" element={<Presupuesto />} />
+        <Route path="bolsillos" element={<Bolsillos />} />
+        <Route path="suscripciones" element={<Suscripciones />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

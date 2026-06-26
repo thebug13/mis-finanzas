@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { NAV_ITEMS } from '../constants/categories';
 import NavIcon from './NavIcon';
 import ThemeToggle from './ThemeToggle';
+import NotificationBell from './NotificationBell';
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
@@ -57,6 +58,7 @@ export default function Sidebar() {
             </p>
             <p className="truncate text-xs text-slate-500">{user?.email}</p>
           </div>
+          <NotificationBell />
           <ThemeToggle />
         </div>
         <button

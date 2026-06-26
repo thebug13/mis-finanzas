@@ -44,6 +44,8 @@ export const NAV_ITEMS = [
   { path: '/', label: 'Dashboard', icon: 'dashboard' },
   { path: '/movimientos', label: 'Movimientos', icon: 'movimientos' },
   { path: '/presupuesto', label: 'Presupuesto', icon: 'presupuesto' },
+  { path: '/bolsillos', label: 'Bolsillos', icon: 'bolsillos' },
+  { path: '/suscripciones', label: 'Suscripciones', icon: 'suscripciones' },
 ];
 
 export function getCategoriasPorTipo(tipo) {
