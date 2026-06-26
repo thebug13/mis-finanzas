@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useNotificaciones } from '../contexts/NotificacionesContext';
 import { formatFecha } from '../utils/formatters';
 
@@ -6,11 +7,15 @@ export default function NotificationBell() {
   const { notificaciones, noLeidas, marcarComoLeida, marcarTodasLeidas } = useNotificaciones();
   const [open, setOpen] = useState(false);
   const panelRef = useRef(null);
+  const bellRef = useRef(null);
+  const [panelPos, setPanelPos] = useState({ top: 0, right: 0 });
 
   // Cerrar panel al hacer click fuera
   useEffect(() => {
     function handleClick(e) {
-      if (panelRef.current && !panelRef.current.contains(e.target)) {
+      const inPanel = panelRef.current?.contains(e.target);
+      const inBell = bellRef.current?.contains(e.target);
+      if (!inPanel && !inBell) {
         setOpen(false);
       }
     }
@@ -48,11 +53,27 @@ export default function NotificationBell() {
     }
   };
 
+  const togglePanel = () => {
+    if (!open && bellRef.current) {
+      const rect = bellRef.current.getBoundingClientRect();
+      // Posicionar el panel debajo de la campana, alineado a la derecha
+      const panelWidth = Math.min(384, window.innerWidth - 16);
+      let right = window.innerWidth - rect.right;
+      // Evitar que se salga por la izquierda
+      if (right + panelWidth > window.innerWidth - 8) {
+        right = 8;
+      }
+      setPanelPos({ top: rect.bottom + 8, right });
+    }
+    setOpen(!open);
+  };
+
   return (
-    <div className="relative" ref={panelRef}>
+    <div className="relative">
       {/* Campana */}
       <button
-        onClick={() => setOpen(!open)}
+        ref={bellRef}
+        onClick={togglePanel}
         className="relative rounded-xl p-2 text-slate-500 transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         title="Notificaciones"
       >
@@ -66,9 +87,13 @@ export default function NotificationBell() {
         )}
       </button>
 
-      {/* Panel desplegable */}
-      {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800 sm:w-96">
+      {/* Panel desplegable - Renderizado via Portal para evitar overflow en sidebar */}
+      {open && createPortal(
+        <div
+          ref={panelRef}
+          className="fixed z-[9999] w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 sm:w-96"
+          style={{ top: panelPos.top, right: panelPos.right }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-700">
             <div>
@@ -133,7 +158,8 @@ export default function NotificationBell() {
               })
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
