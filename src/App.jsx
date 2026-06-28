@@ -9,6 +9,7 @@ import Movimientos from './pages/Movimientos';
 import Presupuesto from './pages/Presupuesto';
 import Bolsillos from './pages/Bolsillos';
 import Suscripciones from './pages/Suscripciones';
+import Calculadora from './pages/Calculadora';
 
 function AppRoutes() {
   const { user, loading } = useAuth();
@@ -39,6 +40,7 @@ function AppRoutes() {
         <Route path="presupuesto" element={<Presupuesto />} />
         <Route path="bolsillos" element={<Bolsillos />} />
         <Route path="suscripciones" element={<Suscripciones />} />
+        <Route path="calculadora" element={<Calculadora />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

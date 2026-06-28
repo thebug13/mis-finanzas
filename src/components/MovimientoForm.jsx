@@ -40,6 +40,7 @@ export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
         ...prev,
         tipo: value,
         categoria: nuevasCategorias[0],
+        medio: value === 'Transferencia' ? 'Digital→Físico' : 'Digital',
       }));
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
@@ -88,6 +89,7 @@ export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
           >
             <option value="Ingreso">Ingreso</option>
             <option value="Gasto">Gasto</option>
+            <option value="Transferencia">🔄 Transferencia (cambio de medio)</option>
           </select>
         </div>
 
@@ -126,32 +128,64 @@ export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
 
         <div className="sm:col-span-2">
           <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Medio
+            {form.tipo === 'Transferencia' ? 'De (origen) → Hacia (destino)' : 'Medio'}
           </label>
-          <div className="flex rounded-xl bg-slate-100 p-1 dark:bg-slate-700">
-            <button
-              type="button"
-              onClick={() => setForm((prev) => ({ ...prev, medio: 'Digital' }))}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
-                form.medio === 'Digital'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              💳 Digital
-            </button>
-            <button
-              type="button"
-              onClick={() => setForm((prev) => ({ ...prev, medio: 'Físico' }))}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
-                form.medio === 'Físico'
-                  ? 'bg-amber-500 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              💵 Físico
-            </button>
-          </div>
+          {form.tipo === 'Transferencia' ? (
+            <div className="flex items-center gap-2">
+              <div className="flex flex-1 rounded-xl bg-slate-100 p-1 dark:bg-slate-700">
+                <button
+                  type="button"
+                  onClick={() => setForm((prev) => ({ ...prev, medio: 'Digital→Físico' }))}
+                  className={`flex-1 rounded-lg py-2 text-xs font-medium transition ${
+                    form.medio === 'Digital→Físico'
+                      ? 'bg-amber-500 text-white shadow-sm'
+                      : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  💳→💵 Cajero / Efectivo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setForm((prev) => ({ ...prev, medio: 'Físico→Digital' }))}
+                  className={`flex-1 rounded-lg py-2 text-xs font-medium transition ${
+                    form.medio === 'Físico→Digital'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  💵→💳 Consignar / Depósito
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex rounded-xl bg-slate-100 p-1 dark:bg-slate-700">
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, medio: 'Digital' }))}
+                className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                  form.medio === 'Digital'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                💳 Digital
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm((prev) => ({ ...prev, medio: 'Físico' }))}
+                className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                  form.medio === 'Físico'
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                💵 Físico
+              </button>
+            </div>
+          )}
+          {form.tipo === 'Transferencia' && (
+            <p className="mt-1 text-xs text-slate-500">El dinero no se pierde, solo cambia de lugar. No afecta tu saldo total.</p>
+          )}
         </div>
       </div>
 

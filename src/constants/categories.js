@@ -23,7 +23,15 @@ export const GASTO_CATEGORIAS = [
   'Otros gastos',
 ];
 
-export const TIPOS = ['Ingreso', 'Gasto'];
+export const TIPOS = ['Ingreso', 'Gasto', 'Transferencia'];
+
+export const TRANSFERENCIA_CATEGORIAS = [
+  'Retiro cajero',
+  'Depósito banco',
+  'Envío digital a efectivo',
+  'Efectivo a digital',
+  'Otro cambio de medio',
+];
 
 export const MESES = [
   { value: 1, label: 'Enero' },
@@ -46,8 +54,11 @@ export const NAV_ITEMS = [
   { path: '/presupuesto', label: 'Presupuesto', icon: 'presupuesto' },
   { path: '/bolsillos', label: 'Bolsillos', icon: 'bolsillos' },
   { path: '/suscripciones', label: 'Suscripciones', icon: 'suscripciones' },
+  { path: '/calculadora', label: 'Calculadora', icon: 'calculadora' },
 ];
 
 export function getCategoriasPorTipo(tipo) {
-  return tipo === 'Ingreso' ? INGRESO_CATEGORIAS : GASTO_CATEGORIAS;
+  if (tipo === 'Ingreso') return INGRESO_CATEGORIAS;
+  if (tipo === 'Transferencia') return TRANSFERENCIA_CATEGORIAS;
+  return GASTO_CATEGORIAS;
 }
