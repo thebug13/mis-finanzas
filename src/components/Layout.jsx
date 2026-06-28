@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
 import NotificationBell from './NotificationBell';
+import BienvenidaModal from './BienvenidaModal';
 import { useAuth } from '../contexts/AuthContext';
 import { useMovimientos } from '../contexts/MovimientosContext';
 import ThemeToggle from './ThemeToggle';
@@ -12,6 +13,7 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
+      <BienvenidaModal />
       <Sidebar />
 
       <div className="flex flex-1 flex-col">

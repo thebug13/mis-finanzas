@@ -4,7 +4,7 @@ import { parseFecha } from './formatters';
  * Filtra movimientos según criterios seleccionados.
  */
 export function filterMovimientos(movimientos, filters) {
-  const { mes, anio, tipo, categoria } = filters;
+  const { mes, anio, tipo, categoria, medio } = filters;
 
   return movimientos.filter((m) => {
     const fecha = parseFecha(m.fecha);
@@ -15,6 +15,7 @@ export function filterMovimientos(movimientos, filters) {
     if (anio && mAnio !== Number(anio)) return false;
     if (tipo && m.tipo !== tipo) return false;
     if (categoria && m.categoria !== categoria) return false;
+    if (medio && (m.medio || 'Digital') !== medio) return false;
 
     return true;
   });
@@ -22,6 +23,7 @@ export function filterMovimientos(movimientos, filters) {
 
 /**
  * Calcula totales de ingresos, gastos y balance.
+ * Excluye Transferencias (cambio de medio) de los cálculos.
  */
 export function calcularTotales(movimientos) {
   const ingresos = movimientos
@@ -32,11 +34,16 @@ export function calcularTotales(movimientos) {
     .filter((m) => m.tipo === 'Gasto')
     .reduce((sum, m) => sum + Number(m.valor), 0);
 
+  const transferencias = movimientos
+    .filter((m) => m.tipo === 'Transferencia')
+    .reduce((sum, m) => sum + Number(m.valor), 0);
+
   return {
     ingresos,
     gastos,
     balance: ingresos - gastos,
     cantidad: movimientos.length,
+    transferencias,
   };
 }
 

@@ -5,6 +5,7 @@ const defaultFilters = {
   anio: new Date().getFullYear().toString(),
   tipo: '',
   categoria: '',
+  medio: '',
 };
 
 export function useFilters() {

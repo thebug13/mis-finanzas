@@ -72,6 +72,21 @@ export default function FilterBar({ filters, updateFilter, resetFilters, showExp
           </select>
         </div>
 
+        <div>
+          <label className="mb-1 block text-xs font-medium text-slate-500">Medio</label>
+          <select
+            value={filters.medio || ''}
+            onChange={(e) => updateFilter('medio', e.target.value)}
+            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+          >
+            <option value="">Todos</option>
+            <option value="Digital">💳 Digital</option>
+            <option value="Físico">💵 Físico</option>
+            <option value="Digital→Físico">💳→💵 Cajero</option>
+            <option value="Físico→Digital">💵→💳 Depósito</option>
+          </select>
+        </div>
+
         <div className="col-span-2 flex gap-2 sm:col-span-1">
           <button
             onClick={resetFilters}
