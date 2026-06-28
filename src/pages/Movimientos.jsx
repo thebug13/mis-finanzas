@@ -139,6 +139,13 @@ export default function Movimientos() {
                       {m.tipo}
                     </span>
                     <span className="text-xs text-slate-500">{m.categoria}</span>
+                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
+                      m.medio === 'Físico'
+                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                        : 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
+                    }`}>
+                      {m.medio === 'Físico' ? '💵' : '💳'} {m.medio || 'Digital'}
+                    </span>
                   </div>
                   <p className="mt-1 font-medium text-slate-900 dark:text-white">{m.concepto}</p>
                   <p className="mt-0.5 text-xs text-slate-500">{formatFecha(m.fecha)}</p>
@@ -193,6 +200,7 @@ export default function Movimientos() {
                   <th className="px-4 py-3 text-left font-medium text-slate-500">Tipo</th>
                   <th className="px-4 py-3 text-left font-medium text-slate-500">Categoría</th>
                   <th className="px-4 py-3 text-left font-medium text-slate-500">Concepto</th>
+                  <th className="px-4 py-3 text-left font-medium text-slate-500">Medio</th>
                   <th className="px-4 py-3 text-right font-medium text-slate-500">Valor</th>
                   <th className="px-4 py-3 text-right font-medium text-slate-500">Acciones</th>
                 </tr>
@@ -219,6 +227,15 @@ export default function Movimientos() {
                     </td>
                     <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{m.categoria}</td>
                     <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{m.concepto}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        m.medio === 'Físico'
+                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                          : 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
+                      }`}>
+                        {m.medio === 'Físico' ? '💵' : '💳'} {m.medio || 'Digital'}
+                      </span>
+                    </td>
                     <td
                       className={`px-4 py-3 text-right font-medium ${
                         m.tipo === 'Ingreso'

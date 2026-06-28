@@ -8,6 +8,7 @@ const emptyForm = {
   categoria: 'Mercado',
   concepto: '',
   valor: '',
+  medio: 'Digital',
 };
 
 export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
@@ -22,6 +23,7 @@ export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
         categoria: movimiento.categoria,
         concepto: movimiento.concepto,
         valor: movimiento.valor,
+        medio: movimiento.medio || 'Digital',
       });
     } else {
       setForm(emptyForm);
@@ -120,6 +122,36 @@ export default function MovimientoForm({ movimiento, onSubmit, onCancel }) {
             placeholder="0"
             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"
           />
+        </div>
+
+        <div className="sm:col-span-2">
+          <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+            Medio
+          </label>
+          <div className="flex rounded-xl bg-slate-100 p-1 dark:bg-slate-700">
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, medio: 'Digital' }))}
+              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                form.medio === 'Digital'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              💳 Digital
+            </button>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, medio: 'Físico' }))}
+              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                form.medio === 'Físico'
+                  ? 'bg-amber-500 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              💵 Físico
+            </button>
+          </div>
         </div>
       </div>
 

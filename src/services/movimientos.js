@@ -52,6 +52,7 @@ export async function createMovimiento(uid, data) {
     categoria: data.categoria,
     concepto: data.concepto,
     valor: Number(data.valor),
+    medio: data.medio || 'Digital',
     createdAt: serverTimestamp(),
   });
 }
@@ -64,6 +65,7 @@ export async function updateMovimiento(id, data) {
     categoria: data.categoria,
     concepto: data.concepto,
     valor: Number(data.valor),
+    medio: data.medio || 'Digital',
   });
 }
 

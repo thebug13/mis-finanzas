@@ -22,6 +22,8 @@ export default function Bolsillos() {
   const [deleteId, setDeleteId] = useState(null);
 
   const totalEnBolsillos = bolsillos.reduce((sum, b) => sum + (b.saldo || 0), 0);
+  const totalDigital = bolsillos.filter(b => (b.tipo || 'Digital') === 'Digital').reduce((sum, b) => sum + (b.saldo || 0), 0);
+  const totalFisico = bolsillos.filter(b => b.tipo === 'Físico').reduce((sum, b) => sum + (b.saldo || 0), 0);
 
   const handleCreate = async (data) => {
     await createBolsillo(user.uid, data);
@@ -83,28 +85,29 @@ export default function Bolsillos() {
       </div>
 
       {/* Resumen */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
           <p className="text-sm text-slate-500">Total en bolsillos</p>
           <p className={`text-2xl font-bold ${totalEnBolsillos < 0 ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
             {formatCurrency(totalEnBolsillos)}
           </p>
         </div>
+        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900 dark:bg-blue-950">
+          <p className="text-sm text-blue-600 dark:text-blue-400">💳 Digital</p>
+          <p className={`text-2xl font-bold ${totalDigital < 0 ? 'text-red-600' : 'text-blue-700 dark:text-blue-300'}`}>
+            {formatCurrency(totalDigital)}
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-100 bg-amber-50 p-5 dark:border-amber-900 dark:bg-amber-950">
+          <p className="text-sm text-amber-600 dark:text-amber-400">💵 Físico (efectivo)</p>
+          <p className={`text-2xl font-bold ${totalFisico < 0 ? 'text-red-600' : 'text-amber-700 dark:text-amber-300'}`}>
+            {formatCurrency(totalFisico)}
+          </p>
+        </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
           <p className="text-sm text-slate-500">Cantidad de bolsillos</p>
           <p className="text-2xl font-bold text-slate-900 dark:text-white">{bolsillos.length}</p>
         </div>
-        {bolsillos.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
-            <p className="text-sm text-slate-500">Bolsillo más grande</p>
-            <p className="text-lg font-bold text-slate-900 dark:text-white">
-              {bolsillos.reduce((max, b) => (b.saldo > max.saldo ? b : max), bolsillos[0]).nombre}
-            </p>
-            <p className="text-sm text-emerald-600 dark:text-emerald-400">
-              {formatCurrency(bolsillos.reduce((max, b) => (b.saldo > max.saldo ? b : max), bolsillos[0]).saldo)}
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Formulario crear/editar */}

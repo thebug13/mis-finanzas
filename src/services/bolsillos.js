@@ -42,6 +42,7 @@ export async function createBolsillo(uid, data) {
     saldo: Number(data.saldo) || 0,
     imagenUrl: data.imagenUrl || '',
     color: data.color || '#10b981',
+    tipo: data.tipo || 'Digital',
     createdAt: serverTimestamp(),
   });
 }
@@ -53,6 +54,7 @@ export async function updateBolsillo(id, data) {
     descripcion: data.descripcion || '',
     imagenUrl: data.imagenUrl || '',
     color: data.color || '#10b981',
+    tipo: data.tipo || 'Digital',
   });
 }
 

@@ -12,6 +12,7 @@ const emptyForm = {
   saldo: '',
   imagenUrl: '',
   color: '#10b981',
+  tipo: 'Digital',
 };
 
 export default function BolsilloForm({ bolsillo, onSubmit, onCancel }) {
@@ -27,6 +28,7 @@ export default function BolsilloForm({ bolsillo, onSubmit, onCancel }) {
         saldo: bolsillo.saldo?.toString() || '',
         imagenUrl: bolsillo.imagenUrl || '',
         color: bolsillo.color || '#10b981',
+        tipo: bolsillo.tipo || 'Digital',
       });
     } else {
       setForm(emptyForm);
@@ -89,6 +91,37 @@ export default function BolsilloForm({ bolsillo, onSubmit, onCancel }) {
           {bolsillo && (
             <p className="mt-1 text-xs text-slate-500">Usa "Transferir" para modificar el saldo</p>
           )}
+        </div>
+
+        <div className="sm:col-span-2">
+          <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+            Tipo de cuenta
+          </label>
+          <div className="flex rounded-xl bg-slate-100 p-1 dark:bg-slate-700">
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, tipo: 'Digital' }))}
+              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                form.tipo === 'Digital'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              💳 Digital
+            </button>
+            <button
+              type="button"
+              onClick={() => setForm((prev) => ({ ...prev, tipo: 'Físico' }))}
+              className={`flex-1 rounded-lg py-2 text-sm font-medium transition ${
+                form.tipo === 'Físico'
+                  ? 'bg-amber-500 text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              💵 Físico (efectivo)
+            </button>
+          </div>
+          <p className="mt-1 text-xs text-slate-500">Digital = cuenta bancaria / billetera virtual &bull; Físico = efectivo en mano</p>
         </div>
       </div>
 

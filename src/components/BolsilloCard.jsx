@@ -1,7 +1,7 @@
 import { formatCurrency } from '../utils/formatters';
 
 export default function BolsilloCard({ bolsillo, onEdit, onDelete, onTransferir, deleteId }) {
-  const { id, nombre, descripcion, saldo, imagenUrl, color } = bolsillo;
+  const { id, nombre, descripcion, saldo, imagenUrl, color, tipo } = bolsillo;
 
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-800">
@@ -25,6 +25,14 @@ export default function BolsilloCard({ bolsillo, onEdit, onDelete, onTransferir,
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 013 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 013 6v3" />
           </svg>
         )}
+        {/* Badge de tipo en esquina superior izquierda */}
+        <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-xs font-medium shadow ${
+          tipo === 'Físico'
+            ? 'bg-amber-500 text-white'
+            : 'bg-blue-600 text-white'
+        }`}>
+          {tipo === 'Físico' ? '💵 Físico' : '💳 Digital'}
+        </span>
         {/* Overlay con acciones */}
         <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition group-hover:opacity-100">
           <button
